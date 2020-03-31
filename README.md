@@ -1,0 +1,2 @@
+# LGBTestr
+Test LoGBook inputs
