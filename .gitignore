@@ -37,3 +37,8 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# RStudio project file
+LGBKtestr.Rproj
+lgbktestr.Rproj
+.Rproj.user
