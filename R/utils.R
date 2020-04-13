@@ -35,20 +35,6 @@ fetch_ideal_colnames <- function(fishery) {
   }
 }
 
-#' Make a difference data frame
-#'
-#' @param df data.frame or derivative class (such as tibble) object
-#' @param ideal_header
-#'
-#' @return
-#' @export
-#'
-#' @examples
-diff_colnames <- function(df, ideal_header) {
-
-}
-
-
 #' Uniform (Standardize) data frame.
 #'
 #' @param df input data frame to be processed
@@ -63,41 +49,40 @@ diff_colnames <- function(df, ideal_header) {
 #'   Removed column(s): '報告年'
 uniform_df <- function(df, fishery = "purse seine") {
 
-  proc_df <- fetch_ideal_colnames(fishery = fishery) %>%
+  proc_df <- fetch_ideal_colnames(fishery) %>%
     purrr::map_dfr(~ tibble::tibble(!!.x := logical())) %>% # empty data.frame
     dplyr::bind_rows(
       magrittr::set_colnames(df, str_rm_newline_code(colnames(df)))
-      )
+     )
 
-  list <- list(
-    rename = !(colnames(df) %in% colnames(proc_df)),
-    drop = !(colnames(proc_df) %in% fetch_ideal_colnames(fishery = fishery)),
-    add = !(fetch_ideal_colnames(fishery = fishery) %in% colnames(proc_df))
-  )
+  drop <- !(colnames(proc_df) %in% fetch_ideal_colnames(fishery))
+  if (sum(drop > 0)) {
+    warning('Removed column(s): "',
+            paste0(colnames(proc_df)[drop], collapse = '", "'),
+            '"')
+  }
 
-  # drop_cols <- !(colnames(proc_df) %in% colnames(ideal_header))
-  # add_cols <- !(colnames(ideal_header) %in% colnames(df))
+  # rename <- !(colnames(df) %in% colnames(proc_df))
+  # compare_df <- 
+  #   rowr::cbind.fill(colnames(df), colnames(proc_df), fill = NA) %>%
+  #   magrittr::set_colnames(c("before", "after")) %>%
+  #   dplyr::mutate_all(.funs = as.character) %>%
+  #   tibble::rownames_to_column() %>%
+  #   dplyr::mutate(status = ifelse(before == after, "No change", NA_character_),
+  #                 status = ifelse(!(after %in% fetch_ideal_colnames(fishery)),
+  #                                   "-- Drop", status),
+  #                 status = ifelse(!(fetch_ideal_colnames(fishery) %in% after),
+  #                                   "++ Add", status),
+  #                 status = ifelse(is.na(status), "-+ Rename", status)) %>%
+  #   dplyr::filter(status != "No change") %>%
+  #   tibble::column_to_rownames()
+  # 
+  #   message('Changed columns: \n',
+  #     paste0(
+  #       capture.output(compare_df),
+  #       collapse = "\n"
+  #       )
+  #     )
 
-  compare_df <- data.frame(
-    before = colnames(df),
-    after  = colnames(proc_df)
-    )
-
-  # do_exist_omit_cols <- length(colnames(proc_df)[drop_cols]) > 0
-  # if (do_exist_omit_cols) {
-  #   warning(
-  #     paste0('Removed column(s): "', paste0(drop_cols, collapse = '", "'), '"')
-  #   )}
-
-  # do_exist_new_cols <- length(colnames(ideal_header)[add_cols]) > 0
-  # if (do_exist_new_cols) {
-    # message('Renamed or added column(s): \n',
-    message('Changed columns: \n',
-      paste0(
-        capture.output(compare_df),
-        collapse = "\n"
-      )
-    )}
-
-  dplyr::select(proc_df, colnames(ideal_header))
+  dplyr::select(proc_df, fetch_ideal_colnames(fishery))
 }
