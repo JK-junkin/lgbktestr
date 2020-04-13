@@ -7,5 +7,5 @@ test_that("uniform_df handles data frame", {
       uniform_df(),
     'Removed column\\(s\\): "A", "B"'
   )
-  expect_equal(colnames(df1), create_ideal_colnames(fishery = "purse seine"))
+  expect_equal(colnames(df1), fetch_ideal_colnames(fishery = "purse seine"))
 })
