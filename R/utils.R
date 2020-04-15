@@ -1,11 +1,16 @@
 #' Remove all newline codes in any strings
 #'
 #' @param vector vector to be processed
+#' 
 #' @return Cleaned up string(s)
+#' 
+#' @importFrom magrittr %>%
+#' 
 #' @examples
 #' x <- c("Main:\rSub", "Main2:\nSub", "Main3:\r\nSub")
 #' str_rm_newline_code(x)
-#'
+#' 
+#' @export
 str_rm_newline_code <- function(vector) {
   vector %>%
     stringr::str_remove_all("\\r") %>%
@@ -15,38 +20,32 @@ str_rm_newline_code <- function(vector) {
 #' Genarater of ideal column names
 #'
 #' @param fishery fishery type of logbook
+#' @return a sequence of name strings having to be equipped
+#' 
 #' @examples
-#' \dontrun{
 #' fetch_ideal_colnames(fishery = "purse seine")
-#' }
+#' 
+#' @export
 fetch_ideal_colnames <- function(fishery) {
-  if (fishery == "purse seine") {
-    c("整理番号", "操業次", "報告月", "漁業種類コード",
-      "漁法コード", "県コード", "操業海域", "漁船一連番号",
-      "船名", "漁船登録番号", "トン数", "トン数別階層コード",
-      "航海数", "航海日数", "操業日数", "探索日数",
-      "通常従業員数", "漁協コード", "許可種類", "根拠地", "メモ",
-      "操業年月日", "操業月", "操業日", "大海区", "漁区",
-      "まいわし(小中)", "まいわし(大)", "かたくち(小中)",
-      "かたくち(大)", "うるめ(小中)", "うるめ(大)", "さば(小中)",
-      "さば(大)", "まあじ(小中)", "まあじ(大)", "まるあじ",
-      "むろあじ", "ぶり", "するめいか", "その他", "合計",
-      "操業メモ(毎日の操業の備考欄の事項")
-  }
+  list_colnames[fishery][[1]]
 }
 
 #' Uniform (Standardize) data frame.
 #'
-#' @param df input data frame to be processed
-#' @param ideal_columns
+#' @param df data frame to be processed
+#' @param fishery a fishery type string
+#'
 #' @return A data.frame ncol reduced if excess columns exists.
+#' 
+#' @importFrom magrittr %>%
+#' 
 #' @examples
-#' df <- data.frame(整理番号 = 1:3,
-#'                  操業次 = rep(2, 3),
-#'                  報告年 = rep(2019, 3))
+#' df <- data.frame(A = 1:3,
+#'                  B = rep(2, 3),
+#'                  C = rep(3, 3))
 #' uniform_df(df)
-#'  Warnings:
-#'   Removed column(s): '報告年'
+#' 
+#' @export
 uniform_df <- function(df, fishery = "purse seine") {
 
   proc_df <- fetch_ideal_colnames(fishery) %>%
@@ -85,4 +84,41 @@ uniform_df <- function(df, fishery = "purse seine") {
   #     )
 
   dplyr::select(proc_df, fetch_ideal_colnames(fishery))
+}
+
+#' Vectorized addition with na.rm
+#' 
+#' \code{plus} adds together multiple vectors in element-wise fashion, 
+#' so \code{plus(a, b, c)} would be similar to \code{a + b +c}. 
+#' Unlike \code{+}, \code{plus} takes an \code{na.rm} argument to handle 
+#' NA behavior.
+#' @inherit EDAWR::plus
+#' @inheritParams EDAWR::plus
+#' @param na.rm if \code{TRUE} (default) ignore NA values when to calculate
+#' 
+#' @examples 
+#' a <- c(NA, 2, 3)
+#' b <- c(1, NA, 3)
+#' c <- c(1, 2, NA)
+#' plus(a, b, c)
+#' plus(a, b, c, na.rm = FALSE)
+#' 
+#' @export
+plus <- function(..., na.rm = TRUE) {
+  rowSums(as.data.frame(list(...)), na.rm = na.rm)
+}
+
+#' All value matching
+#' 
+#' @param x vector or NULL: the values to be matched.
+#' @param X vector or NULL: the values to be matched against.
+#' @return TRUE or FALSE
+#' 
+#' @examples
+#' letters[1:3] %all_in% letters[1:5]
+#' letters[1:3] %all_in% letters[2:5]
+#' 
+#' @export
+`%all_in%` <- function(x, X) {
+  all(x %in% X)
 }
