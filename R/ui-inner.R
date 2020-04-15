@@ -8,6 +8,7 @@
 #'
 #' @importFrom testthat test_that expect_identical
 #' @importFrom magrittr %>%
+#' @importFrom stats na.omit
 #'
 #' @examples
 #' \dontrun{
@@ -39,6 +40,7 @@ test_length_identical <- function(dat, column, u_len) {
 #'
 #' @importFrom testthat test_that expect_identical
 #' @importFrom magrittr %>%
+#' @importFrom stats na.omit
 #'
 #' @examples
 #' \dontrun{test_year(dat, column = "foo", u_value = 2020)}
@@ -66,6 +68,7 @@ test_value_identical <- function(dat, column, u_value) {
 #'
 #' @importFrom testthat test_that expect_true
 #' @importFrom magrittr %>%
+#' @importFrom stats na.omit
 #'
 #' @examples
 #' \dontrun{
@@ -95,6 +98,7 @@ test_value_equals <- function(dat, column, u_values) {
 #'
 #' @importFrom testthat test_that expect_equal
 #' @importFrom magrittr %>%
+#' @importFrom stats na.omit
 #'
 #' @examples
 #' \dontrun{
@@ -107,12 +111,10 @@ test_sum <- function(dat, total_col, partial_cols = c()) {
   against <- dat %>%
     # dplyr::select(`まいわし(小中)`:`その他`) %>%
     dplyr::select_at(.vars = dplyr::vars(partial_cols)) %>%
-    dplyr::mutate(sum = rowSums(., na.rm = F)) %>%
-    dplyr::pull(sum) %>%
+    rowSums(na.rm = F) %>%
     na.omit()
 
   test_that("is total value equal to each partial values?", {
     expect_equal(target, against)
-                 # with(dat, plus(partial_cols, na.rm = T)))
   })
 }
