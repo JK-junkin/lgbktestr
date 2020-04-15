@@ -4,7 +4,7 @@
 \alias{test_sum}
 \title{Test total value corresponded with the sum of partial values}
 \usage{
-test_sum(dat, total_col, partial_cols = list())
+test_sum(dat, total_col, partial_cols = c())
 }
 \arguments{
 \item{dat}{data frame including column to be inspected}
@@ -21,6 +21,6 @@ Test total value corresponded with the sum of partial values
 }
 \examples{
 \dontrun{
-test_sum(dat, total_col = "foobar", partial_cols = list("foo", "bar"))
+test_sum(dat, total_col = "foobar", partial_cols = c("foo", "bar"))
 }
 }

@@ -38,5 +38,5 @@ test_excel_logbooks(file = "your/file.xlsx",
                     species = "not-tunas",
                     dictionary = "vessel-license-2020.csv")
 }
-              
+
 }
