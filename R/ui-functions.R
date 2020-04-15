@@ -67,7 +67,7 @@ test_excel_logbook <- function(file, sheet,
                        Suggestion = NA_character_)
   }
 
-  test3 <- try(test_value_equals(dat, column = "操業海域", u_val = 1:2),
+  test3 <- try(test_value_equals(dat, column = "操業海域", u_values = 1:2),
                silent = TRUE)
   if (class(test3) == "try-error") {
     out3 <- data.frame(File = file,
@@ -86,7 +86,7 @@ test_excel_logbook <- function(file, sheet,
                        Suggestion = NA_character_)
   }
 
-  test4 <- try(test_value_identical(dat, column = "漁業種類コード", u_val = 13L),
+  test4 <- try(test_value_identical(dat, column = "漁業種類コード", u_value = 13L),
                silent = TRUE)
   if (class(test4) == "try-error") {
     out4 <- data.frame(File = file,
@@ -105,7 +105,7 @@ test_excel_logbook <- function(file, sheet,
                        Suggestion = NA_character_)
   }
 
-  test5 <- try(test_value_equals(dat, column = "漁法コード", u_val = 251:252),
+  test5 <- try(test_value_equals(dat, column = "漁法コード", u_values = 251:252),
                silent = TRUE)
   if (class(test5) == "try-error") {
     out5 <- data.frame(File = file,
