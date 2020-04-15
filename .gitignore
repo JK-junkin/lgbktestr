@@ -39,6 +39,9 @@ vignettes/*.pdf
 .Renviron
 
 # RStudio project file
-LGBKtestr.Rproj
+# LGBKtestr.Rproj
 lgbktestr.Rproj
 .Rproj.user
+
+# Mac OS X
+.DS_Store
