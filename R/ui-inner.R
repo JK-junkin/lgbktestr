@@ -7,14 +7,25 @@
 #' @return any warning messages
 #'
 #' @importFrom testthat test_that expect_identical
+#' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{
 #' test_length_identical(dat, column = "foo", u_len = 1L)
 #' }
 test_length_identical <- function(dat, column, u_len) {
+  # target <- dat %>%
+  #   dplyr::filter(!is.na(column)) %>%
+  #   dplyr::pull(column) %>%
+  #   unique() %>%
+  #   length()
+  target <- dat[, column] %>%
+    unique() %>%
+    na.omit() %>%
+    length()
+
   test_that("is operation region mixed?", {
-    expect_identical(length(unique(dat[, column])), u_len)
+    expect_identical(target, u_len)
   })
 }
 
@@ -27,12 +38,21 @@ test_length_identical <- function(dat, column, u_len) {
 #' @return any warning messages
 #'
 #' @importFrom testthat test_that expect_identical
+#' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{test_year(dat, column = "foo", u_value = 2020)}
 test_value_identical <- function(dat, column, u_value) {
-  test_that("is ", {
-    expect_identical(unique(as.integer(dat[, column])), u_value)
+  # target <- dat %>%
+  #   dplyr::filter(!is.na(column)) %>%
+  #   dplyr::pull(column) %>%
+  target <- dat[, column] %>%
+    unique() %>%
+    na.omit() %>%
+    as.integer()
+
+  test_that("is a value equal to?", {
+    expect_identical(target, u_value)
   })
 }
 
@@ -45,14 +65,23 @@ test_value_identical <- function(dat, column, u_value) {
 #' @return an warning message
 #'
 #' @importFrom testthat test_that expect_true
+#' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{
 #' test_region_numcode(dat, column = "foo", ideal_code_numbers = 1:2)
 #' }
 test_value_equals <- function(dat, column, u_values) {
+  # target <- dat %>%
+  #   dplyr::filter(!is.na(column)) %>%
+  #   dplyr::pull(column) %>%
+  target <- dat[, column] %>%
+    unique() %>%
+    na.omit() %>%
+    as.integer()
+
   test_that("is code number correct?", {
-    expect_true(unique(as.integer(dat[, column])) %all_in% u_values)
+    expect_true(target %all_in% u_values)
   })
 }
 
@@ -65,21 +94,25 @@ test_value_equals <- function(dat, column, u_values) {
 #' @return an warning message
 #'
 #' @importFrom testthat test_that expect_equal
+#' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{
-#' test_sum(dat, total_col = "foobar", partial_cols = list("foo", "bar"))
+#' test_sum(dat, total_col = "foobar", partial_cols = c("foo", "bar"))
 #' }
-test_sum <- function(dat, total_col, partial_cols = list()) {
+test_sum <- function(dat, total_col, partial_cols = c()) {
+  target <- dat[, total_col] %>%
+    na.omit()
+
+  against <- dat %>%
+    # dplyr::select(`まいわし(小中)`:`その他`) %>%
+    dplyr::select_at(.vars = dplyr::vars(partial_cols)) %>%
+    dplyr::mutate(sum = rowSums(., na.rm = F)) %>%
+    dplyr::pull(sum) %>%
+    na.omit()
+
   test_that("is total value equal to each partial values?", {
-    expect_equal(dat[, total_col],
-                 with(dat, plus(partial_cols, na.rm = T)))
+    expect_equal(target, against)
+                 # with(dat, plus(partial_cols, na.rm = T)))
   })
 }
-# test_that("is total catch equal to the sum of each catch?", {
-#   expect_equal(test_xl$合計,
-#                test_xl %>%
-#                  dplyr::select(`まいわし(小中)`:`その他`) %>%
-#                  dplyr::mutate(sum = rowSums(., na.rm = T)) %>%
-#                  dplyr::pull(sum))
-# })
