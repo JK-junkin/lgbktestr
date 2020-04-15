@@ -15,11 +15,6 @@
 #' test_length_identical(dat, column = "foo", u_len = 1L)
 #' }
 test_length_identical <- function(dat, column, u_len) {
-  # target <- dat %>%
-  #   dplyr::filter(!is.na(column)) %>%
-  #   dplyr::pull(column) %>%
-  #   unique() %>%
-  #   length()
   target <- dat[, column] %>%
     unique() %>%
     na.omit() %>%

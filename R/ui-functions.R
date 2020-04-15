@@ -24,7 +24,7 @@ test_excel_logbook <- function(file, sheet,
                                species = "not-tunas",
                                dictionary = "vessel-license-2020.csv") {
   dat <-
-    readxl::read_excel(file, sheet) %>%#, col_names = TRUE) %>%
+    readxl::read_excel(file, sheet) %>% #, col_names = TRUE) %>%
     # tibble::rownames_to_column() %>%
     # dplyr::filter(!is.na(sheet)) %>%
     # tibble::column_to_rownames() %>%
