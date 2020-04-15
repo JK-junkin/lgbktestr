@@ -1,16 +1,37 @@
+Type: Package
 Package: lgbktestr
-Title: What the Package Does (One Line, Title Case)
+Title: A Testtool for Japanese Logbooks
 Version: 0.2.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
+Authors@R:
+    person(given = "Junji",
+           family = "Kinoshita",
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+Description: \code{lgbktestr} is a check tool for digitalized Japanese logbooks. 
+License: GPL (>= 2)
+Depends:
+    R (>= 3.6.0)
+Imports:
+    devtools,
+    readxl,
+    magrittr,
+    EDAWR,
+    dplyr,
+    tidyr,
+    tibble,
+    stringr,
+    purrr,
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder:
+    knitr
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Remotes:
+    rstudio/EDAWR
 Suggests: 
-    testthat
+    usethis
