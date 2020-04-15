@@ -11,17 +11,37 @@ devtools::load_all() # Load source package on memory (!! skip package install)
 
 ## -----------------
 
+needs(foreach, tidyverse)
+devtools::load_all()
+
+# データファイルのパス ---------
 parent_dir <- "/Volumes/Extreme SSD/DATA/大中型旋網漁獲成績報告書"
 year <- 2020
 indir <- dir(parent_dir, pattern = paste0(year, ".+操業"), full.names = T)
 
 infiles <- dir(file.path(indir, "入力済み"), full = T, pattern = "\\.xlsx?$")
 
+# 読み込みテスト --------
 file <- infiles[2]
 xl <- readxl::read_excel(file, sheet = "整理番号")
 head(xl); colnames(xl)
-
 t_xl <- lgbktestr::uniform_df(xl)
+
+# 動作テスト
+out <- foreach(i = seq_along(infiles), .combine = "rbind") %do% {
+  test_excel_logbook(file = infiles[i], sheet = "整理番号") %>%
+    dplyr::filter(Error_type != "OK (No errors)") %>%
+    dplyr::mutate(File = stringr::str_extract(File, "(?<=入力済み\\/).*\\.xlsx$"))
+}
+
+formattable::formattable(out, cex = 10)
+
+
+
+
+
+
+
 
 ## -----------------
 ## よりやっかいなエクセルデータに対処しなければならなくなったら
