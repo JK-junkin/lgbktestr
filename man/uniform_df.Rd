@@ -4,10 +4,12 @@
 \alias{uniform_df}
 \title{Uniform (Standardize) data frame.}
 \usage{
-uniform_df(df)
+uniform_df(df, fishery = "purse seine")
 }
 \arguments{
-\item{df}{input data frame to be processed}
+\item{df}{data frame to be processed}
+
+\item{fishery}{a fishery type string}
 }
 \value{
 A data.frame ncol reduced if excess columns exists.
@@ -16,10 +18,9 @@ A data.frame ncol reduced if excess columns exists.
 Uniform (Standardize) data frame.
 }
 \examples{
-df <- data.frame(整理番号 = 1:3,
-                 操業次 = rep(2, 3),
-                 報告年 = rep(2019, 3))
+df <- data.frame(A = 1:3,
+                 B = rep(2, 3),
+                 C = rep(3, 3))
 uniform_df(df)
- Warnings:
-  Removed column(s): '報告年'
+
 }
