@@ -1,8 +1,15 @@
-devtools::load_all() # load lgbktestr
 
-# needed packages
-needs::needs(devtools, tidyverse, lubridate, readxl, tidyxl, unpivotr, zipangu,
-             magrittr, testthat, usethis)
+# remotes::install_github("cran/rowr")
+# needs::needs(lubridate, tidyxl, unpivotr, zipangu, rowr)
+
+devtools::load_all() # Load source package on memory (!! skip package install)
+
+# devtools::install()  # Wrapper function of `R CMD INSTALL`
+# devtools::build()    # Create bandle pkg from source pkg `R CMD BUILD`
+# library(lgbktestr)   # Cannot run only after devtools::load_all().
+# devtools::reload()   # Reload.
+
+## -----------------
 
 parent_dir <- "/Volumes/Extreme SSD/DATA/大中型旋網漁獲成績報告書"
 year <- 2020
@@ -10,16 +17,14 @@ indir <- dir(parent_dir, pattern = paste0(year, ".+操業"), full.names = T)
 
 infiles <- dir(file.path(indir, "入力済み"), full = T, pattern = "\\.xlsx?$")
 
-## tracer (曳光弾, bullet) -------
 file <- infiles[2]
 xl <- readxl::read_excel(file, sheet = "整理番号")
-colnames(xl)
+head(xl); colnames(xl)
 
-test_xl <- xl %>% uniform_df()
+t_xl <- lgbktestr::uniform_df(xl)
 
-testthat::test_file("tests/testthat/test-utils.R")
-
-
+## -----------------
+## よりやっかいなエクセルデータに対処しなければならなくなったら
 # cells <- tidyxl::xlsx_cells(file)
 # head(cells)
 # unique(cells$sheet)
