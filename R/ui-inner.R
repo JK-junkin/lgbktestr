@@ -40,9 +40,6 @@ test_length_identical <- function(dat, column, u_len) {
 #' @examples
 #' \dontrun{test_year(dat, column = "foo", u_value = 2020)}
 test_value_identical <- function(dat, column, u_value) {
-  # target <- dat %>%
-  #   dplyr::filter(!is.na(column)) %>%
-  #   dplyr::pull(column) %>%
   target <- dat[, column] %>%
     unique() %>%
     na.omit() %>%
@@ -70,9 +67,6 @@ test_value_identical <- function(dat, column, u_value) {
 #' test_region_numcode(dat, column = "foo", ideal_code_numbers = 1:2)
 #' }
 test_value_equals <- function(dat, column, u_values) {
-  # target <- dat %>%
-  #   dplyr::filter(!is.na(column)) %>%
-  #   dplyr::pull(column) %>%
   target <- dat[, column] %>%
     unique() %>%
     na.omit() %>%
@@ -104,7 +98,7 @@ test_sum <- function(dat, total_col, partial_cols = c()) {
     na.omit()
 
   against <- dat %>%
-    # dplyr::select(`まいわし(小中)`:`その他`) %>%
+    # dplyr::select(`A`:`G`) %>%
     dplyr::select_at(.vars = dplyr::vars(partial_cols)) %>%
     rowSums(na.rm = F) %>%
     na.omit()
