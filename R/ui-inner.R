@@ -14,6 +14,7 @@
 #' \dontrun{
 #' test_length_identical(dat, column = "foo", u_len = 1L)
 #' }
+#' @export
 test_length_identical <- function(dat, column, u_len) {
   target <- dat[, column] %>%
     unique() %>%
@@ -39,6 +40,7 @@ test_length_identical <- function(dat, column, u_len) {
 #'
 #' @examples
 #' \dontrun{test_year(dat, column = "foo", u_value = 2020)}
+#' @export
 test_value_identical <- function(dat, column, u_value) {
   target <- dat[, column] %>%
     unique() %>%
@@ -66,6 +68,7 @@ test_value_identical <- function(dat, column, u_value) {
 #' \dontrun{
 #' test_region_numcode(dat, column = "foo", ideal_code_numbers = 1:2)
 #' }
+#' @export
 test_value_equals <- function(dat, column, u_values) {
   target <- dat[, column] %>%
     unique() %>%
@@ -93,6 +96,7 @@ test_value_equals <- function(dat, column, u_values) {
 #' \dontrun{
 #' test_sum(dat, total_col = "foobar", partial_cols = c("foo", "bar"))
 #' }
+#' @export
 test_sum <- function(dat, total_col, partial_cols = c()) {
   target <- dat[, total_col] %>%
     na.omit()
