@@ -10,11 +10,12 @@
 #'
 #' @examples
 #' \dontrun{
-#' treat_excel(file = "your/file.csv",
-#'             fishery = "purse seine",
-#'             species = "not-tunas",
-#'             dictionaries = list("files/at/", "your/local"))
+#' treat_csv(file = "your/file.csv",
+#'           fishery = "purse seine",
+#'           species = "not-tunas",
+#'           dictionaries = list("files/at/", "your/local"))
 #' }
-treat_excel <- function(file, fishery = "purse seine",
-                        species = "not-tunas", dictionaries) {
+treat_csv <- function(file, fishery = "purse seine",
+                      species = "not-tunas", dictionaries) {
+  dat <- utils::read.csv(file, header = TRUE, stringsAsFactors = FALSE)
 }

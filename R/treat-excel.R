@@ -19,7 +19,9 @@
 #' }
 treat_excel <- function(file, sheet, fishery = "purse seine",
                         species = "not-tunas", dictionaries) {
-  if(fishery == "purse seine" & species == "not-tunas") sheet <- 2
+
+  if (fishery == "purse seine" && species == "not-tunas") sheet <- 2
+  if (length(readxl::excel_sheets(file)) < sheet) sheet <- 1
 
   dat <-
     readxl::read_excel(file, sheet) %>% #, col_names = TRUE) %>%
@@ -28,9 +30,7 @@ treat_excel <- function(file, sheet, fishery = "purse seine",
     # tibble::column_to_rownames() %>%
     uniform_df()
 
-  test1 <- try(test_length_identical(dat, column = "操業海域", u_len = 1L),
-               silent = TRUE)
-  if (class(test1) == "try-error") {
+  if (!test_unique_length(dat, column = "操業海域", u_len = 1L)) {
     out1 <- data.frame(File = file,
                        Sheet = sheet,
                        Column_name = NA_character_,
@@ -46,9 +46,7 @@ treat_excel <- function(file, sheet, fishery = "purse seine",
                        Suggestion = NA_character_)
   }
 
-  test2 <- try(test_value_identical(dat, column = "操業年月日", u_value = 2020L),
-               silent = TRUE)
-  if (class(test2) == "try-error") {
+  if (!test_unique_values(dat, column = "操業年月日", u_vals = "2020")) {
     out2 <- data.frame(File = file,
                        Sheet = sheet,
                        Column_name = NA_character_,
@@ -65,9 +63,7 @@ treat_excel <- function(file, sheet, fishery = "purse seine",
                        Suggestion = NA_character_)
   }
 
-  test3 <- try(test_value_equals(dat, column = "操業海域", u_values = 1:2),
-               silent = TRUE)
-  if (class(test3) == "try-error") {
+  if (!test_all_uniq_vals_in(dat, column = "操業海域", u_vals = 1:2)) {
     out3 <- data.frame(File = file,
                        Sheet = sheet,
                        Column_name = NA_character_,
@@ -84,9 +80,7 @@ treat_excel <- function(file, sheet, fishery = "purse seine",
                        Suggestion = NA_character_)
   }
 
-  test4 <- try(test_value_identical(dat, column = "漁業種類コード", u_value = 13L),
-               silent = TRUE)
-  if (class(test4) == "try-error") {
+  if (!test_unique_values(dat, column = "漁業種類コード", u_vals = "13")) {
     out4 <- data.frame(File = file,
                        Sheet = sheet,
                        Column_name = NA_character_,
@@ -103,9 +97,7 @@ treat_excel <- function(file, sheet, fishery = "purse seine",
                        Suggestion = NA_character_)
   }
 
-  test5 <- try(test_value_equals(dat, column = "漁法コード", u_values = 251:252),
-               silent = TRUE)
-  if (class(test5) == "try-error") {
+  if (!test_all_uniq_vals_in(dat, column = "漁法コード", u_vals = 251:252)) {
     out5 <- data.frame(File = file,
                        Sheet = sheet,
                        Column_name = NA_character_,
@@ -122,10 +114,7 @@ treat_excel <- function(file, sheet, fishery = "purse seine",
                        Suggestion = NA_character_)
   }
 
-  test6 <- try(test_sum(dat, total_col = "航海日数",
-                        partial_cols = c("操業日数", "探索日数")),
-               silent = TRUE)
-  if (class(test6) == "try-error") {
+  if (!test_sum(dat, total_col = "航海日数", "操業日数", "探索日数")) {
     out6 <- data.frame(File = file,
                        Sheet = sheet,
                        Column_name = NA_character_,
@@ -143,5 +132,4 @@ treat_excel <- function(file, sheet, fishery = "purse seine",
   }
 
   suppressWarnings(dplyr::bind_rows(out1, out2, out3, out4, out5, out6))
-
 }
