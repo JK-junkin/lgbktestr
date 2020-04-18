@@ -1,7 +1,7 @@
 ## FUNDAMENTAL
 # usethis::create_package("ho") # create minimal (R/ DESCRIPTION NAMESPACES) pkg
 devtools::document()    # create man/ etc.. (inherit from roxygen2::roxygenize)
-usethis::use_testthat() # create tests/ etc..
+Eusethis::use_testthat() # create tests/ etc..
 usethis::use_data()     # create data/ and export data (.rda)
 usethis::use_data_raw() # create data-raw/ etc..
 
@@ -22,3 +22,5 @@ purrr::map(.x = c("devtools", "dplyr", "tidyr", "tibble", "stringr", "purrr",
            .f = usethis::use_package)
 purrr::map(.x = c("testthat", "usethis", "knitr", "rmarkdown", "EDAWR", "lintr"),
            .f = usethis::use_package, "Suggests")
+
+usethis::use_mit_license(name = "JK-junkin") # Add MIT Licence to DESCRIPTION

@@ -25,7 +25,8 @@ Imports:
     tidyselect,
     testthat,
     stats,
-    tools
+    tools,
+    glue
 VignetteBuilder:
     knitr
 Encoding: UTF-8
