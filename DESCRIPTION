@@ -23,6 +23,7 @@ Imports:
     purrr,
     rlang,
     tidyselect,
+    testthat,
     stats
 VignetteBuilder:
     knitr
@@ -34,9 +35,8 @@ Remotes:
     cran/isoband,
     rstudio/EDAWR
 Suggests: 
-    usethis,
-    testthat,
     knitr,
+    usethis,
     rmarkdown,
     EDAWR,
     lintr
