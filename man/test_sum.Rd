@@ -21,9 +21,9 @@ Test total value corresponded with the sum of partial values
 }
 \examples{
 data <- data.frame(a = 1:3, b = 4:6, c = 7:9, sum = 1:3 + 4:6 + 7:9)
-test_sum(data, total_col = "sum", "a", "b", "c"))
+test_sum(data, total_col = "sum", "a", "b", "c")
 test_sum(data, total_col = "sum", 1:3)
-test_sum(data, total_col = "sum", c("a", "b", "c")))
-test_sum(data, total_col = "sum", `a`:`c`))
+test_sum(data, total_col = "sum", c("a", "b", "c"))
+test_sum(data, total_col = "sum", `a`:`c`)
 
 }
