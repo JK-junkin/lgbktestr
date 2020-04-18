@@ -16,15 +16,15 @@ Imports:
     devtools,
     readxl,
     magrittr,
-    EDAWR,
     dplyr,
     tidyr,
     tibble,
     stringr,
     purrr,
+    rlang,
+    tidyselect,
     testthat,
-    knitr,
-    rmarkdown
+    stats
 VignetteBuilder:
     knitr
 Encoding: UTF-8
@@ -35,4 +35,8 @@ Remotes:
     cran/isoband,
     rstudio/EDAWR
 Suggests: 
-    usethis
+    knitr,
+    usethis,
+    rmarkdown,
+    EDAWR,
+    lintr

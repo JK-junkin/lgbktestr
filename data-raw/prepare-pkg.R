@@ -18,8 +18,7 @@ devtools::check()       # build bandle package and scan general problems
 
 ## Regarding DESCRIPTION
 purrr::map(.x = c("devtools", "dplyr", "tidyr", "tibble", "stringr", "purrr",
-                  "readxl", "magrittr", "EDAWR", "testthat", "knitr",
-                  "rmarkdown"),
+                  "readxl", "magrittr", "rlang", "tidyselect", "stats"),
            .f = usethis::use_package)
-purrr::map(.x = c("usethis"),
+purrr::map(.x = c("testthat", "usethis", "knitr", "rmarkdown", "EDAWR", "lintr"),
            .f = usethis::use_package, "Suggests")

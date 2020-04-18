@@ -9,7 +9,7 @@ test_length_identical(dat, column, u_len)
 \arguments{
 \item{dat}{data frame including column to be scaned}
 
-\item{column}{a column name to be scaned}
+\item{column}{a column name ("string") to be scaned}
 
 \item{u_len}{an unique value (ideal length) to be matched against}
 }
