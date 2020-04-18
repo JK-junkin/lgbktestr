@@ -4,14 +4,14 @@
 \alias{test_sum}
 \title{Test total value corresponded with the sum of partial values}
 \usage{
-test_sum(dat, total_col, partial_cols = c())
+test_sum(dat, total_col, ...)
 }
 \arguments{
 \item{dat}{data frame including column to be inspected}
 
-\item{total_col}{a column name of total value digitized}
+\item{total_col}{a column name ("string") of total value digitized}
 
-\item{partial_cols}{a list of column names to sum up}
+\item{...}{a sequence of column names to be sumed up}
 }
 \value{
 an warning message
@@ -20,7 +20,10 @@ an warning message
 Test total value corresponded with the sum of partial values
 }
 \examples{
-\dontrun{
-test_sum(dat, total_col = "foobar", partial_cols = c("foo", "bar"))
-}
+data <- data.frame(a = 1:3, b = 4:6, c = 7:9, sum = 1:3 + 4:6 + 7:9)
+test_sum(data, total_col = "sum", "a", "b", "c"))
+test_sum(data, total_col = "sum", 1:3)
+test_sum(data, total_col = "sum", c("a", "b", "c")))
+test_sum(data, total_col = "sum", `a`:`c`))
+
 }

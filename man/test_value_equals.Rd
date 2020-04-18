@@ -9,7 +9,7 @@ test_value_equals(dat, column, u_values)
 \arguments{
 \item{dat}{data frame including column to be inspected}
 
-\item{column}{a column name to be scaned}
+\item{column}{a column name ("string") to be scaned}
 
 \item{u_values}{unique values (ideal numbers) to be matched against}
 }
