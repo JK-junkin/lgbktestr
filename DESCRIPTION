@@ -24,7 +24,8 @@ Imports:
     rlang,
     tidyselect,
     testthat,
-    stats
+    stats,
+    tools
 VignetteBuilder:
     knitr
 Encoding: UTF-8
