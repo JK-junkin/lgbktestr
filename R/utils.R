@@ -26,7 +26,7 @@ str_rm_newline_code <- function(vector) {
 #'
 #' @export
 fetch_ideal_colnames <- function(fishery) {
-  list_colnames[fishery][[1]]
+  list_colnames[[fishery]]
 }
 
 #' Uniform (Standardize) data frame.
@@ -99,3 +99,6 @@ plus <- function(..., na.rm = TRUE) { # nolint
 `%all_in%` <- function(x, X) { # nolint
   all(x %in% X)
 }
+
+# Helpers -----------------------------------------------------------
+

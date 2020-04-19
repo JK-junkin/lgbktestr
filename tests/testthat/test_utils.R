@@ -1,7 +1,13 @@
 library(lgbktestr)
 context("Column names")
 
-test_that("uniform_df standardize data.frame properly", {
+test_that("fetch_ideal_colnames() returns a colnames vector", {
+  expect_is(fetch_ideal_colnames(fishery = "purse seine"), "character")
+  expect_null(fetch_ideal_colnames(fishery = "long line"))
+  expect_null(fetch_ideal_colnames(fishery = "pole and line"))
+})
+
+test_that("uniform_df() standardize data.frame properly", {
   expect_warning(
     df1 <- data.frame(A = logical(10L), B = integer(10L)) %>%
       uniform_df(),
@@ -13,7 +19,7 @@ test_that("uniform_df standardize data.frame properly", {
 
 context("Clearance strings")
 
-test_that("str_rm_newline_code treats a string properly", {
+test_that("str_rm_newline_code() treats a string properly", {
   expect_equal(str_rm_newline_code("A\n"),   "A") # LF: Line Feed. 
   expect_equal(str_rm_newline_code("A\r"),   "A") # CR: Carriage Return.
   expect_equal(str_rm_newline_code("A\r\n"), "A") # CRLF: Mixture of CR and LF.
@@ -26,7 +32,7 @@ test_that("str_rm_newline_code treats a string properly", {
   expect_equal(str_rm_newline_code("ABC"), "ABC")       # none
 })
 
-test_that("str_rm_newline_code treats a string vector properly", {
+test_that("str_rm_newline_code() treats stiring vector properly", {
   expect_equal(str_rm_newline_code(c("A\n", "B\n")),         c("A", "B"))
   expect_equal(str_rm_newline_code(c("A\r", "B\r")),         c("A", "B"))
   expect_equal(str_rm_newline_code(c("A\r\n", "B\r\n")),     c("A", "B"))
