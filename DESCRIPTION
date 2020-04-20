@@ -26,7 +26,8 @@ Imports:
     testthat,
     stats,
     tools,
-    glue
+    glue,
+    labdsv
 VignetteBuilder:
     knitr
 Encoding: UTF-8
