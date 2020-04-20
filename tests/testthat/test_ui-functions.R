@@ -1,5 +1,5 @@
 library(lgbktestr)
-context("Read and Write (I/O)")
+context("I/O: check_logbkkk()")
 
 test_that("check_logbook() returns data.frame", {
   expect_warning(

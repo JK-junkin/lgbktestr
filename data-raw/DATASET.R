@@ -1,6 +1,6 @@
 ## code to prepare `DATASET` dataset goes here
 list_colnames <- 
-  list(
+  tibble::lst(
     "purse seine" = c("整理番号", "操業次", "報告月", "漁業種類コード",
                       "漁法コード", "県コード", "操業海域", "漁船一連番号",
                       "船名", "漁船登録番号", "トン数", "トン数別階層コード",
