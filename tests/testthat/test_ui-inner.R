@@ -1,5 +1,5 @@
 library(lgbktestr)
-context("Test ui-inner functions")
+context("Inner test functions")
 
 test_that("test_sum() treats `...` properly like dplyr::select()", {
   input <- data.frame(a = 1:3, b = 4:6, c = 7:9,
