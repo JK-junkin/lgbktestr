@@ -15,11 +15,14 @@
 #' }
 #' @export
 test_unique_length <- function(dat, column, u_len) {
-  target <- unique(dat[, column]) %>%
+  target <- dat %>%
+    labdsv::defactorize() %>%
+    dplyr::pull(column) %>%
     stats::na.omit() %>%
+    unique() %>%
     length()
 
-  identical(target, u_len)
+  isTRUE(all.equal.numeric(target, u_len, scale = 1))
 }
 
 #' Test a number to be correctly digitalized
@@ -39,10 +42,13 @@ test_unique_length <- function(dat, column, u_len) {
 #' }
 #' @export
 test_unique_values <- function(dat, column, u_vals) {
-  target <- unique(dat[, column]) %>%
-    stats::na.omit()
+  target <- dat %>%
+    labdsv::defactorize() %>%
+    dplyr::pull(column) %>%
+    stats::na.omit() %>%
+    unique()
 
-  identical(target, u_vals)
+  isTRUE(all.equal(target, u_vals, scale = 1))
 }
 
 #' Test numbers to be correctly digitalized
@@ -62,8 +68,11 @@ test_unique_values <- function(dat, column, u_vals) {
 #' }
 #' @export
 test_all_uniq_vals_in <- function(dat, column, u_vals) {
-  target <- unique(dat[, column]) %>%
-    stats::na.omit()
+  target <- dat %>%
+    labdsv::defactorize() %>%
+    dplyr::pull(column) %>%
+    stats::na.omit() %>%
+    unique()
 
   target %all_in% u_vals
 }
@@ -85,10 +94,14 @@ test_all_uniq_vals_in <- function(dat, column, u_vals) {
 #' test_sum(data, total_col = "sum", 1:3)
 #' test_sum(data, total_col = "sum", c("a", "b", "c"))
 #' test_sum(data, total_col = "sum", `a`:`c`)
-#' 
+#'
 #' @export
 test_sum <- function(dat, total_col, ...) {
-  target <- stats::na.omit(dat[, total_col])
+  dat <- labdsv::defactorize(dat)
+
+  target <- dat %>%
+    dplyr::pull(total_col) %>%
+    stats::na.omit()
 
   # Referred frome dplyr::select.data.frame
   loc <- tidyselect::eval_select(rlang::expr(c(...)), dat)
