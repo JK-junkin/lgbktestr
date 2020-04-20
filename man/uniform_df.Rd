@@ -4,7 +4,7 @@
 \alias{uniform_df}
 \title{Uniform (Standardize) data frame.}
 \usage{
-uniform_df(df, fishery = "purse seine")
+uniform_df(df, fishery)
 }
 \arguments{
 \item{df}{data frame to be processed}

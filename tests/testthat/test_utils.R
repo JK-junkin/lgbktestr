@@ -2,9 +2,9 @@ library(lgbktestr)
 context("Column names")
 
 test_that("fetch_ideal_colnames() returns a colnames vector", {
-  expect_is(fetch_ideal_colnames(fishery = "purse seine"), "character")
-  expect_null(fetch_ideal_colnames(fishery = "long line"))
-  expect_null(fetch_ideal_colnames(fishery = "pole and line"))
+  expect_is(fetch_ideal_colnames(fishery = "purse_seine"), "character")
+  expect_null(fetch_ideal_colnames(fishery = "long_line"))
+  expect_null(fetch_ideal_colnames(fishery = "pole_and_line"))
 })
 
 test_that("uniform_df() standardize data.frame properly", {
@@ -13,7 +13,7 @@ test_that("uniform_df() standardize data.frame properly", {
       uniform_df(),
     'Removed column\\(s\\): "A", "B"'
   )
-  expect_equal(colnames(df1), fetch_ideal_colnames(fishery = "purse seine"))
+  expect_equal(colnames(df1), fetch_ideal_colnames(fishery = "purse_seine"))
 })
 
 

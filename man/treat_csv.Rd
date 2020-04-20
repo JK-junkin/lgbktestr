@@ -4,7 +4,7 @@
 \alias{treat_csv}
 \title{Check up logbook csv file.}
 \usage{
-treat_csv(file, fishery = "purse seine", species = "not-tunas", dictionaries)
+treat_csv(file, fishery = "purse_seine", species = "not_tunas", dictionaries)
 }
 \arguments{
 \item{file}{an csv file}

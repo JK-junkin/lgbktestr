@@ -15,8 +15,8 @@
 #'           species = "not-tunas",
 #'           dictionaries = list("files/at/", "your/local"))
 #' }
-treat_csv <- function(file, fishery = "purse seine",
-                      species = "not-tunas", dictionaries) {
+treat_csv <- function(file, fishery = "purse_seine",
+                      species = "not_tunas", dictionaries) {
   message("`treat_csv()` is under construction. Please wait until release.")
   # dat <- utils::read.csv(file, header = TRUE, stringsAsFactors = FALSE)
 }

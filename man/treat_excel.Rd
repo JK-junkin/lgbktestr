@@ -6,10 +6,10 @@
 \usage{
 treat_excel(
   file,
-  sheet,
-  fishery = "purse seine",
-  species = "not-tunas",
-  dictionaries
+  sheet = NULL,
+  fishery = NULL,
+  species = NULL,
+  dictionaries = NULL
 )
 }
 \arguments{
@@ -34,8 +34,8 @@ Check up logbook excel file.
 \dontrun{
 treat_excel(file = "your/file.xlsx",
             sheet = "Sheet 1",
-            fishery = "purse seine",
-            species = "not-tunas",
+            fishery = "purse_seine",
+            species = "not_tunas",
             dictionaries = list("files/at/", "your/local"))
 }
 }

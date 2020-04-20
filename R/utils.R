@@ -45,7 +45,7 @@ fetch_ideal_colnames <- function(fishery) {
 #' uniform_df(df)
 #'
 #' @export
-uniform_df <- function(df, fishery = "purse seine") {
+uniform_df <- function(df, fishery) {
 
   proc_df <- fetch_ideal_colnames(fishery) %>%
     purrr::map_dfr(~ tibble::tibble(!!.x := logical())) %>% # empty data.frame

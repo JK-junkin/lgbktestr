@@ -27,12 +27,16 @@ check_logbook.default <- function(file, ...) {
 
 #' @export
 check_logbook.xls <- function(file, ...) {
-  treat_excel(file, ...)
+  treat_excel(file, sheet = NULL,
+              fishery = NULL, species = NULL,
+              dictionaries = NULL)
 }
 
 #' @export
 check_logbook.xlsx <- function(file, ...) {
-  treat_excel(file, ...)
+  treat_excel(file, sheet = NULL,
+              fishery = NULL, species = NULL,
+              dictionaries = NULL)
 }
 
 #' @export
