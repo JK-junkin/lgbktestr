@@ -3,46 +3,40 @@
 #' @param file an excel file
 #' @param sheet an input sheet in the input file
 #' @param fishery fishery which the logbook treats
-#' @param species species which the logbook treats
-#' @param dictionaries a look-up table of vessel name and licence number in
-#'   a specific year
-#'
+#' @param ... arguments succeeded to each method function
 #' @return data.frame describing error or warning records
 #'
 #' @examples
 #' \dontrun{
 #' treat_excel(file = "your/file.xlsx",
 #'             sheet = "Sheet 1",
-#'             fishery = "purse_seine",
-#'             species = "not_tunas",
-#'             dictionaries = list("files/at/", "your/local"))
+#'             fishery = "purse_seine"))
 #' }
 #' @export
-treat_excel <- function(file, sheet = NULL,
-                        fishery = NULL, species = NULL,
-                        dictionaries = NULL) {
-  if (is.null(fishery)) {
-    message("'fishery' is NULL then 'purse_seine' is assigned automatically.")
+treat_excel <- function(file, sheet, fishery, ...) {
+  sheets <- readxl::excel_sheets(path = file)
+
+  if (missing(sheet)) {
+    sheet <- 1
+    sheet_name <- sheets[sheet]
+    message("'sheet' is missing then 1st sheet '", sheet_name,
+            "' is read by default." )
+  } else if (is.numeric(sheet)) {
+    sheet_name <- sheets[sheet]
+  } else {
+    sheet_name <- sheet
+  }
+
+  # This code is a hard coding for the business needs.
+  if (missing(fishery)) {
+    message("'fishery' is missing then 'purse_seine' is assigned automatically.")
     fishery <- "purse_seine"
   }
 
-  if (is.null(species)) {
-    message("'species' is NULL then 'not_tunas' is assigned automatically.")
-    fishery <- "not_tunas"
-  }
+  dat <- readxl::read_excel(path = file, sheet = sheet_name) %>%
+    uniform_df(.fishery = fishery)
+  class(dat) <- append(fishery, class(dat))
 
-  if (is.null(sheet)) {
-    if (fishery == "purse_seine" && species == "not_tunas") sheet <- 2
-    else if (length(readxl::excel_sheets(file)) < 2) sheet <- 1
-    else sheet
-  }
-
-  dat <-
-    readxl::read_excel(path = file, sheet, col_types = "text") %>%
-    # tibble::rownames_to_column() %>%
-    # dplyr::filter(!is.na(sheet)) %>%
-    # tibble::column_to_rownames() %>%
-    uniform_df()
-
-  scan_contents(dat, fishery, species, dictionaries)
+  scan_contents(.dat = dat, ...,
+                .file = file, .sheet = sheet_name, .fishery = fishery)
 }
