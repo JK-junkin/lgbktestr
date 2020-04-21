@@ -10,7 +10,7 @@ test_that("fetch_ideal_colnames() returns a colnames vector", {
 test_that("uniform_df() standardize data.frame properly", {
   expect_warning(
     df1 <- data.frame(A = logical(10L), B = integer(10L)) %>%
-      uniform_df(),
+      uniform_df(.fishery = "purse_seine"),
     'Removed column\\(s\\): "A", "B"'
   )
   expect_equal(colnames(df1), fetch_ideal_colnames(fishery = "purse_seine"))
