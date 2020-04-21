@@ -98,6 +98,3 @@ plus <- function(..., na.rm = TRUE) { # nolint
 `%all_in%` <- function(x, X) { # nolint
   all(x %in% X)
 }
-
-# Helpers -----------------------------------------------------------
-

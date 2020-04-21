@@ -15,4 +15,9 @@ list_colnames <-
                       "操業メモ(毎日の操業の備考欄の事項")
   )
 
-usethis::use_data(list_colnames, internal = TRUE, overwrite = TRUE)
+out_df_colnames <-
+  c("File", "Sheet", "Column_name", "Row_name", "Error_type", "Suggestion") 
+
+usethis::use_data(list_colnames, out_df_colnames,
+                  internal = TRUE, overwrite = TRUE)
+
