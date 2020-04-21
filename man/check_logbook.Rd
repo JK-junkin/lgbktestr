@@ -12,7 +12,7 @@ check_logbook(file, ...)
 \item{...}{arguments succeeded to each method function}
 }
 \value{
-data.frame describing error or warning records
+data.frame describing error and/or warning records
 }
 \description{
 Check up logbook file.
@@ -20,7 +20,7 @@ Check up logbook file.
 \examples{
 \dontrun{
 check_logbook(file = "your/file.xlsx",
-              sheet = "Sheet 1") # argument for excel file
+              sheet = "Sheet 1") # An argument for excel file
 }
 
 }

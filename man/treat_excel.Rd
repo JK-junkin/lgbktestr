@@ -4,13 +4,7 @@
 \alias{treat_excel}
 \title{Check up logbook excel file.}
 \usage{
-treat_excel(
-  file,
-  sheet = NULL,
-  fishery = NULL,
-  species = NULL,
-  dictionaries = NULL
-)
+treat_excel(file, sheet, fishery, ...)
 }
 \arguments{
 \item{file}{an excel file}
@@ -19,10 +13,7 @@ treat_excel(
 
 \item{fishery}{fishery which the logbook treats}
 
-\item{species}{species which the logbook treats}
-
-\item{dictionaries}{a look-up table of vessel name and licence number in
-a specific year}
+\item{...}{arguments succeeded to each method function}
 }
 \value{
 data.frame describing error or warning records
@@ -34,8 +25,6 @@ Check up logbook excel file.
 \dontrun{
 treat_excel(file = "your/file.xlsx",
             sheet = "Sheet 1",
-            fishery = "purse_seine",
-            species = "not_tunas",
-            dictionaries = list("files/at/", "your/local"))
+            fishery = "purse_seine"))
 }
 }
