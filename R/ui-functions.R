@@ -2,17 +2,17 @@
 #'
 #' @param file an input file
 #' @param ... arguments succeeded to each method function
-#' @return data.frame describing error or warning records
+#' @return data.frame describing error and/or warning records
 #'
 #' @examples
 #' \dontrun{
 #' check_logbook(file = "your/file.xlsx",
-#'               sheet = "Sheet 1") # argument for excel file
+#'               sheet = "Sheet 1") # An argument for excel file
 #' }
 #'
 #' @export
 check_logbook <- function(file, ...) {
-  class(file) <- append(class(file), tools::file_ext(file))
+  class(file) <- append(tools::file_ext(file), class(file))
   UseMethod("check_logbook", file)
 }
 
@@ -27,16 +27,12 @@ check_logbook.default <- function(file, ...) {
 
 #' @export
 check_logbook.xls <- function(file, ...) {
-  treat_excel(file, sheet = NULL,
-              fishery = NULL, species = NULL,
-              dictionaries = NULL)
+  treat_excel(file, ...)
 }
 
 #' @export
 check_logbook.xlsx <- function(file, ...) {
-  treat_excel(file, sheet = NULL,
-              fishery = NULL, species = NULL,
-              dictionaries = NULL)
+  treat_excel(file, ...)
 }
 
 #' @export

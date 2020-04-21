@@ -31,8 +31,8 @@ fetch_ideal_colnames <- function(fishery) {
 
 #' Uniform (Standardize) data frame.
 #'
-#' @param df data frame to be processed
-#' @param fishery a fishery type string
+#' @param .dat data frame to be processed
+#' @param .fishery a fishery type string
 #'
 #' @return A data.frame ncol reduced if excess columns exists.
 #'
@@ -42,25 +42,24 @@ fetch_ideal_colnames <- function(fishery) {
 #' df <- data.frame(A = 1:3,
 #'                  B = rep(2, 3),
 #'                  C = rep(3, 3))
-#' uniform_df(df)
+#' uniform_df(.dat = df, .fishery = "purse_seine")
 #'
 #' @export
-uniform_df <- function(df, fishery) {
-
-  proc_df <- fetch_ideal_colnames(fishery) %>%
+uniform_df <- function(.dat, .fishery) {
+  proc_df <- fetch_ideal_colnames(.fishery) %>%
     purrr::map_dfr(~ tibble::tibble(!!.x := logical())) %>% # empty data.frame
     dplyr::bind_rows(
-      magrittr::set_colnames(df, str_rm_newline_code(colnames(df)))
+      magrittr::set_colnames(.dat, str_rm_newline_code(colnames(.dat)))
      )
 
-  drop <- !(colnames(proc_df) %in% fetch_ideal_colnames(fishery))
+  drop <- !(colnames(proc_df) %in% fetch_ideal_colnames(.fishery))
   if (sum(drop > 0)) {
     warning('Removed column(s): "',
             paste0(colnames(proc_df)[drop], collapse = '", "'),
             '"')
   }
 
-  dplyr::select(proc_df, fetch_ideal_colnames(fishery))
+  dplyr::select(proc_df, fetch_ideal_colnames(.fishery))
 }
 
 #' Vectorized addition with na.rm

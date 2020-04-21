@@ -97,17 +97,17 @@ test_all_uniq_vals_in <- function(dat, column, u_vals) {
 #'
 #' @export
 test_sum <- function(dat, total_col, ...) {
-  dat <- labdsv::defactorize(dat)
+  dd <- labdsv::defactorize(dat)
 
-  target <- dat %>%
+  target <- dd %>%
     dplyr::pull(total_col) %>%
     stats::na.omit()
 
   # Referred frome dplyr::select.data.frame
-  loc <- tidyselect::eval_select(rlang::expr(c(...)), dat)
-  loc <- ensure_group_vars(loc, dat, notify = TRUE)
+  loc <- tidyselect::eval_select(rlang::expr(c(...)), dd)
+  loc <- ensure_group_vars(loc, dd, notify = TRUE)
 
-  against <- magrittr::set_names(dat[loc], names(loc)) %>%
+  against <- magrittr::set_names(dd[loc], names(loc)) %>%
     rowSums(na.rm = F) %>%
     stats::na.omit()
 
