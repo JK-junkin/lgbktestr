@@ -77,7 +77,7 @@ is_all_uniq_vals_in <- function(dat, column, u_vals) {
 #' Test total value corresponded with the sum of partial values
 #'
 #' @param dat data frame including column to be inspected
-#' @param total_col a column name ("string") of total value digitized
+#' @param column a column name ("string") of total value digitized
 #' @param ... a sequence of column names to be sumed up
 #'
 #' @return an warning message
@@ -86,17 +86,17 @@ is_all_uniq_vals_in <- function(dat, column, u_vals) {
 #'
 #' @examples
 #' data <- data.frame(a = 1:3, b = 4:6, c = 7:9, sum = 1:3 + 4:6 + 7:9)
-#' is_sum_equal(data, total_col = "sum", "a", "b", "c")
-#' is_sum_equal(data, total_col = "sum", 1:3)
-#' is_sum_equal(data, total_col = "sum", c("a", "b", "c"))
-#' is_sum_equal(data, total_col = "sum", `a`:`c`)
+#' is_sum(data, column = "sum", "a", "b", "c")
+#' is_sum(data, column = "sum", 1:3)
+#' is_sum(data, column = "sum", c("a", "b", "c"))
+#' is_sum(data, column = "sum", `a`:`c`)
 #'
 #' @export
-is_sum_equal <- function(dat, total_col, ...) {
+is_sum <- function(dat, column, ...) {
   dd <- labdsv::defactorize(dat)
 
   target <- dd %>%
-    dplyr::pull(total_col) %>%
+    dplyr::pull(column) %>%
     stats::na.omit()
 
   # Referred frome dplyr::select.data.frame

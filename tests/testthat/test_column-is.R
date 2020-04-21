@@ -1,22 +1,22 @@
 library(lgbktestr)
-context("Inner test functions")
+context("Column test functions")
 
-test_that("is_sum_equal() treats `...` properly like dplyr::select()", {
+test_that("is_sum() treats `...` properly like dplyr::select()", {
   input <- data.frame(a = 1:3, b = 4:6, c = 7:9,
                       ab = 1:3 + 4:6,
                       sum = 1:3 + 4:6 + 7:9)
 
-  expect_true(is_sum_equal(input, total_col = "sum", c("a", "b", "c")))
-  expect_true(is_sum_equal(input, total_col = "sum", c(1, 2, 3)))
-  expect_true(is_sum_equal(input, total_col = "sum", 1:3))
-  expect_true(is_sum_equal(input, total_col = "sum", "a", "b", "c"))
-  expect_true(is_sum_equal(input, total_col = "sum", a:c))
-  expect_true(is_sum_equal(input, total_col = "sum", `a`:`c`))
-  expect_true(is_sum_equal(input, total_col = "sum", `a`:`b`, c))
-  expect_true(is_sum_equal(input, total_col = "ab", -c, -ab, -sum))
-  expect_true(is_sum_equal(input, total_col = "ab", -c(c, sum, ab)))
-  expect_true(is_sum_equal(input, total_col = "ab", -c("c", "sum", "ab")))
-  expect_false(is_sum_equal(input, total_col = "ab", -c, -sum))
+  expect_true(is_sum(input, column = "sum", c("a", "b", "c")))
+  expect_true(is_sum(input, column = "sum", c(1, 2, 3)))
+  expect_true(is_sum(input, column = "sum", 1:3))
+  expect_true(is_sum(input, column = "sum", "a", "b", "c"))
+  expect_true(is_sum(input, column = "sum", a:c))
+  expect_true(is_sum(input, column = "sum", `a`:`c`))
+  expect_true(is_sum(input, column = "sum", `a`:`b`, c))
+  expect_true(is_sum(input, column = "ab", -c, -ab, -sum))
+  expect_true(is_sum(input, column = "ab", -c(c, sum, ab)))
+  expect_true(is_sum(input, column = "ab", -c("c", "sum", "ab")))
+  expect_false(is_sum(input, column = "ab", -c, -sum))
 })
 
 test_that("is_unique_length() returns T/F correctly", {
