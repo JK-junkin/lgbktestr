@@ -6,15 +6,14 @@
 #'
 #' @return any warning messages
 #'
-#' @importFrom testthat test_that expect_identical
 #' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{
-#' test_unique_length(dat, column = "foo", u_len = 1L)
+#' is_unique_length(dat, column = "foo", u_len = 1L)
 #' }
 #' @export
-test_unique_length <- function(dat, column, u_len) {
+is_unique_length <- function(dat, column, u_len) {
   target <- dat %>%
     labdsv::defactorize() %>%
     dplyr::pull(column) %>%
@@ -33,15 +32,14 @@ test_unique_length <- function(dat, column, u_len) {
 #'
 #' @return any warning messages
 #'
-#' @importFrom testthat test_that expect_identical
 #' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{
-#' test_unique_values(dat, column = "foo", u_vals = 2020)
+#' is_unique_values(dat, column = "foo", u_vals = 2020)
 #' }
 #' @export
-test_unique_values <- function(dat, column, u_vals) {
+is_unique_values <- function(dat, column, u_vals) {
   target <- dat %>%
     labdsv::defactorize() %>%
     dplyr::pull(column) %>%
@@ -59,15 +57,14 @@ test_unique_values <- function(dat, column, u_vals) {
 #'
 #' @return an warning message
 #'
-#' @importFrom testthat test_that expect_true
 #' @importFrom magrittr %>%
 #'
 #' @examples
 #' \dontrun{
-#' test_all_uniq_vals_in(dat, column = "foo", u_vals = 1:2)
+#' is_all_uniq_vals_in(dat, column = "foo", u_vals = 1:2)
 #' }
 #' @export
-test_all_uniq_vals_in <- function(dat, column, u_vals) {
+is_all_uniq_vals_in <- function(dat, column, u_vals) {
   target <- dat %>%
     labdsv::defactorize() %>%
     dplyr::pull(column) %>%
@@ -85,18 +82,17 @@ test_all_uniq_vals_in <- function(dat, column, u_vals) {
 #'
 #' @return an warning message
 #'
-#' @importFrom testthat test_that expect_equal
 #' @importFrom magrittr %>%
 #'
 #' @examples
 #' data <- data.frame(a = 1:3, b = 4:6, c = 7:9, sum = 1:3 + 4:6 + 7:9)
-#' test_sum(data, total_col = "sum", "a", "b", "c")
-#' test_sum(data, total_col = "sum", 1:3)
-#' test_sum(data, total_col = "sum", c("a", "b", "c"))
-#' test_sum(data, total_col = "sum", `a`:`c`)
+#' is_sum_equal(data, total_col = "sum", "a", "b", "c")
+#' is_sum_equal(data, total_col = "sum", 1:3)
+#' is_sum_equal(data, total_col = "sum", c("a", "b", "c"))
+#' is_sum_equal(data, total_col = "sum", `a`:`c`)
 #'
 #' @export
-test_sum <- function(dat, total_col, ...) {
+is_sum_equal <- function(dat, total_col, ...) {
   dd <- labdsv::defactorize(dat)
 
   target <- dd %>%
