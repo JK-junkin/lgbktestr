@@ -20,5 +20,4 @@ All value matching
 \examples{
 letters[1:3] \%all_in\% letters[1:5]
 letters[1:3] \%all_in\% letters[2:5]
-
 }

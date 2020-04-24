@@ -24,5 +24,4 @@ b <- c(1, NA, 3)
 c <- c(1, 2, NA)
 plus(a, b, c)
 plus(a, b, c, na.rm = FALSE)
-
 }

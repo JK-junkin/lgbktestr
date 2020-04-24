@@ -18,6 +18,17 @@ list_colnames <-
 out_df_colnames <-
   c("File", "Sheet", "Column_name", "Row_name", "Error_type", "Suggestion") 
 
-usethis::use_data(list_colnames, out_df_colnames,
-                  internal = TRUE, overwrite = TRUE)
+usethis::use_data(list_colnames, out_df_colnames, internal = T, overwrite = T)
 
+check_list <-
+  tibble::lst(
+    "purse_seine" = tibble::lst(
+      "column" = c("操業海域", "操業海域", "操業年月日", "漁業種類コード",
+                   "漁法コード", "航海日数", "合計"),
+      "values" = c("1L", "1:2", "2020", "13", "251:252", "操業日数:探索日数",
+                   "`まいわし(小中)`:`その他`"),
+      "isType" = c("uniq_len", "all_in", "uniq_val", "uniq_val", "all_in",
+                   "sum", "sum")
+      )
+    )
+usethis::use_data(check_list, internal = F, overwrite = T)

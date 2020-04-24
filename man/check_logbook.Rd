@@ -22,5 +22,4 @@ Check up logbook file.
 check_logbook(file = "your/file.xlsx",
               sheet = "Sheet 1") # An argument for excel file
 }
-
 }

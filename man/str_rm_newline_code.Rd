@@ -18,5 +18,4 @@ Remove all newline codes in any strings
 \examples{
 x <- c("Main:\rSub", "Main2:\nSub", "Main3:\r\nSub")
 str_rm_newline_code(x)
-
 }

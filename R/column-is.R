@@ -3,11 +3,8 @@
 #' @param dat data frame including column to be scaned
 #' @param column a column name ("string") to be scaned
 #' @param u_len an unique value (ideal length) to be matched against
-#'
 #' @return any warning messages
-#'
 #' @importFrom magrittr %>%
-#'
 #' @examples
 #' \dontrun{
 #' is_unique_length(dat, column = "foo", u_len = 1L)
@@ -29,11 +26,8 @@ is_unique_length <- function(dat, column, u_len) {
 #' @param dat data frame including column to be scaned
 #' @param column a column name ("string") to be scaned
 #' @param u_vals unique values to be matched against
-#'
 #' @return any warning messages
-#'
 #' @importFrom magrittr %>%
-#'
 #' @examples
 #' \dontrun{
 #' is_unique_values(dat, column = "foo", u_vals = 2020)
@@ -54,11 +48,8 @@ is_unique_values <- function(dat, column, u_vals) {
 #' @param dat data frame including column to be inspected
 #' @param column a column name ("string") to be scaned
 #' @param u_vals unique values being expected to include all target values
-#'
 #' @return an warning message
-#'
 #' @importFrom magrittr %>%
-#'
 #' @examples
 #' \dontrun{
 #' is_all_uniq_vals_in(dat, column = "foo", u_vals = 1:2)
@@ -79,18 +70,14 @@ is_all_uniq_vals_in <- function(dat, column, u_vals) {
 #' @param dat data frame including column to be inspected
 #' @param column a column name ("string") of total value digitized
 #' @param ... a sequence of column names to be sumed up
-#'
 #' @return an warning message
-#'
 #' @importFrom magrittr %>%
-#'
 #' @examples
 #' data <- data.frame(a = 1:3, b = 4:6, c = 7:9, sum = 1:3 + 4:6 + 7:9)
 #' is_sum(data, column = "sum", "a", "b", "c")
 #' is_sum(data, column = "sum", 1:3)
 #' is_sum(data, column = "sum", c("a", "b", "c"))
 #' is_sum(data, column = "sum", `a`:`c`)
-#'
 #' @export
 is_sum <- function(dat, column, ...) {
   dd <- labdsv::defactorize(dat)

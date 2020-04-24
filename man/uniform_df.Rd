@@ -22,5 +22,4 @@ df <- data.frame(A = 1:3,
                  B = rep(2, 3),
                  C = rep(3, 3))
 uniform_df(.dat = df, .fishery = "purse_seine")
-
 }

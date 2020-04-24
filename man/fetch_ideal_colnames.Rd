@@ -17,5 +17,4 @@ Genarater of ideal column names
 }
 \examples{
 fetch_ideal_colnames(fishery = "purse seine")
-
 }
