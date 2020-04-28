@@ -86,11 +86,12 @@ is_sum <- function(dat, column, ...) {
     dplyr::pull(column) %>%
     stats::na.omit()
 
-  # Referred frome dplyr::select.data.frame
-  loc <- tidyselect::eval_select(rlang::expr(c(...)), dd)
-  loc <- ensure_group_vars(loc, dd, notify = TRUE)
-
-  against <- magrittr::set_names(dd[loc], names(loc)) %>%
+  # # Referred frome dplyr::select.data.frame
+  # loc <- tidyselect::eval_select(rlang::expr(c(...)), dd, env = environment())
+  # loc <- ensure_group_vars(loc, dd, notify = TRUE)
+  # against <- magrittr::set_names(dd[loc], names(loc)) %>%
+  against <- dat %>%
+    dplyr::select(...) %>%
     rowSums(na.rm = F) %>%
     stats::na.omit()
 
@@ -100,20 +101,20 @@ is_sum <- function(dat, column, ...) {
 # Helpers -----------------------------------------------------------------
 
 # Referred from dplyr's R/select.R
-ensure_group_vars <- function(loc, data, notify = TRUE) {
-  group_loc <- match(dplyr::group_vars(data), names(data))
-  missing <- dplyr::setdiff(group_loc, loc)
-
-  if (length(missing) > 0) {
-    vars <- names(data)[missing]
-    if (notify) {
-      rlang::inform(glue::glue(
-        "Adding missing grouping variables: ",
-        paste0("`", names(data)[missing], "`", collapse = ", ")
-      ))
-    }
-    loc <- c(magrittr::set_names(missing, vars), loc)
-  }
-
-  loc
-}
+# ensure_group_vars <- function(loc, data, notify = TRUE) {
+#   group_loc <- match(dplyr::group_vars(data), names(data))
+#   missing <- dplyr::setdiff(group_loc, loc)
+#
+#   if (length(missing) > 0) {
+#     vars <- names(data)[missing]
+#     if (notify) {
+#       rlang::inform(glue::glue(
+#         "Adding missing grouping variables: ",
+#         paste0("`", names(data)[missing], "`", collapse = ", ")
+#       ))
+#     }
+#     loc <- c(magrittr::set_names(missing, vars), loc)
+#   }
+#
+#   loc
+# }
