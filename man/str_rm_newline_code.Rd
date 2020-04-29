@@ -7,10 +7,10 @@
 str_rm_newline_code(vector)
 }
 \arguments{
-\item{vector}{vector to be processed}
+\item{vector}{A vector to be processed.}
 }
 \value{
-Cleaned up string(s)
+Cleaned up string(s).
 }
 \description{
 Remove all newline codes in any strings

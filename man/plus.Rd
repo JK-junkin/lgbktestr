@@ -13,10 +13,9 @@ na.rm logical. Should missing values (including NaN) be omitted from the calcula
 \item{na.rm}{if \code{TRUE} (default) ignore NA values when to calculate}
 }
 \description{
-\code{plus} adds together multiple vectors in element-wise fashion,
-so \code{plus(a, b, c)} would be similar to \code{a + b +c}.
-Unlike \code{+}, \code{plus} takes an \code{na.rm} argument to handle
-NA behavior.
+\code{plus} adds together multiple vectors in element-wise fashion, so
+\code{plus(a, b, c)} would be similar to \code{a + b +c}. Unlike \code{+},
+\code{plus} takes an \code{na.rm} argument to handle NA behavior.
 }
 \examples{
 a <- c(NA, 2, 3)

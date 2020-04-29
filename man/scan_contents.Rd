@@ -2,28 +2,29 @@
 % Please edit documentation in R/scan-contents.R
 \name{scan_contents}
 \alias{scan_contents}
-\title{Inspect and suggest changes contents of input data}
+\title{Inspect data contents}
 \usage{
 scan_contents(.dat, species, dictionaries = NULL, .file, .sheet, .fishery)
 }
 \arguments{
-\item{.dat}{a data.frame or tibble standardized by \code{uniform_df()}.}
+\item{.dat}{A data.frame or tibble standardized by \code{uniform_df()}.}
 
-\item{species}{species such as "not_tuna"}
+\item{species}{Species such as "not_tuna".}
 
-\item{dictionaries}{lookup tables referred to.}
+\item{dictionaries}{Lookup tables referred to.}
 
-\item{.file}{file name}
+\item{.file}{File name.}
 
-\item{.sheet}{sheet name when excel file read}
+\item{.sheet}{Sheet name when excel file read.}
 
-\item{.fishery}{fishery such as "purse_seine"}
+\item{.fishery}{Fishery such as "purse_seine".}
 }
 \value{
-a data.frame
+A data.frame.
 }
 \description{
-Inspect and suggest changes contents of input data
+Scan input data (\code{data.frame}-like object) and return suggestions that
+records might be problematic.
 }
 \examples{
 \dontrun{

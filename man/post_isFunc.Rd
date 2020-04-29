@@ -7,7 +7,7 @@
 post_isFunc(type = 1, ...)
 }
 \arguments{
-\item{type}{a string or a number choosen from 1 to 4 corresponding with
+\item{type}{a string or a number. Must be one of 1 to 4, or
 \code{c("uniq_len", "uniq_val", "all_in", "sum")}; then, it calls
 \code{is_unique_length}, \code{is_unique_values},
 \code{is_all_uniq_vals_in}, and \code{is_sum}, respectively.}

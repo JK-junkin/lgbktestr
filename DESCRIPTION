@@ -23,7 +23,6 @@ Imports:
     purrr,
     rlang,
     tidyselect,
-    testthat,
     stats,
     tools,
     glue,
@@ -38,8 +37,10 @@ Remotes:
     cran/isoband,
     rstudio/EDAWR
 Suggests: 
-    knitr,
     usethis,
+    testthat,
+    knitr,
     rmarkdown,
     EDAWR,
-    lintr
+    lintr,
+    covr

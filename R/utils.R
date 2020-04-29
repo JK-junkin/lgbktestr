@@ -1,12 +1,11 @@
 #' Remove all newline codes in any strings
 #'
-#' @param vector vector to be processed
-#' @return Cleaned up string(s)
+#' @param vector A vector to be processed.
+#' @return Cleaned up string(s).
 #' @importFrom magrittr %>%
 #' @examples
 #' x <- c("Main:\rSub", "Main2:\nSub", "Main3:\r\nSub")
 #' str_rm_newline_code(x)
-#' @export
 str_rm_newline_code <- function(vector) {
   vector %>%
     stringr::str_remove_all("\\r") %>%
@@ -19,7 +18,6 @@ str_rm_newline_code <- function(vector) {
 #' @return a sequence of name strings having to be equipped
 #' @examples
 #' fetch_ideal_colnames(fishery = "purse seine")
-#' @export
 fetch_ideal_colnames <- function(fishery) {
   list_colnames[[fishery]]
 }
@@ -35,7 +33,6 @@ fetch_ideal_colnames <- function(fishery) {
 #'                  B = rep(2, 3),
 #'                  C = rep(3, 3))
 #' uniform_df(.dat = df, .fishery = "purse_seine")
-#' @export
 uniform_df <- function(.dat, .fishery) {
   proc_df <- make_empty_df(colnames = fetch_ideal_colnames(.fishery)) %>%
     dplyr::bind_rows(
@@ -54,10 +51,9 @@ uniform_df <- function(.dat, .fishery) {
 
 #' Vectorized addition with na.rm
 #'
-#' \code{plus} adds together multiple vectors in element-wise fashion,
-#' so \code{plus(a, b, c)} would be similar to \code{a + b +c}.
-#' Unlike \code{+}, \code{plus} takes an \code{na.rm} argument to handle
-#' NA behavior.
+#' \code{plus} adds together multiple vectors in element-wise fashion, so
+#' \code{plus(a, b, c)} would be similar to \code{a + b +c}. Unlike \code{+},
+#' \code{plus} takes an \code{na.rm} argument to handle NA behavior.
 #' @inherit EDAWR::plus
 #' @inheritParams EDAWR::plus
 #' @param na.rm if \code{TRUE} (default) ignore NA values when to calculate
@@ -67,7 +63,6 @@ uniform_df <- function(.dat, .fishery) {
 #' c <- c(1, 2, NA)
 #' plus(a, b, c)
 #' plus(a, b, c, na.rm = FALSE)
-#' @export
 plus <- function(..., na.rm = TRUE) { # nolint
   rowSums(as.data.frame(list(...)), na.rm = na.rm)
 }
@@ -80,7 +75,6 @@ plus <- function(..., na.rm = TRUE) { # nolint
 #' @examples
 #' letters[1:3] %all_in% letters[1:5]
 #' letters[1:3] %all_in% letters[2:5]
-#' @export
 `%all_in%` <- function(x, X) { # nolint
   all(x %in% X)
 }
@@ -88,9 +82,9 @@ plus <- function(..., na.rm = TRUE) { # nolint
 #' Classify is_functions
 #'
 #' @param type a string or a number. Must be one of 1 to 4, or
-#' \code{c("uniq_len", "uniq_val", "all_in", "sum")}; then, it calls
-#' \code{is_unique_length}, \code{is_unique_values},
-#' \code{is_all_uniq_vals_in}, and \code{is_sum}, respectively.
+#'   \code{c("uniq_len", "uniq_val", "all_in", "sum")}; then, it calls
+#'   \code{is_unique_length}, \code{is_unique_values},
+#'   \code{is_all_uniq_vals_in}, and \code{is_sum}, respectively.
 #' @param ... arguments of each called function.
 #' @importFrom magrittr %>%
 #' @return TRUE of FALSE
@@ -99,7 +93,6 @@ plus <- function(..., na.rm = TRUE) { # nolint
 #' post_isFunc(type = "uniq_len")
 #' post_isFunc(type = 1)
 #' }
-#' @export
 post_isFunc <- function(type = 1, ...) {
   switch(type,
          "uniq_len" = is_unique_length(...),

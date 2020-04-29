@@ -1,0 +1,19 @@
+---
+title: "Error-check-workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Error-check-workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lgbktestr)
+```

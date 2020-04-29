@@ -4,6 +4,7 @@ devtools::document()    # create man/ etc.. (inherit from roxygen2::roxygenize)
 Eusethis::use_testthat() # create tests/ etc..
 usethis::use_data()     # create data/ and export data (.rda)
 usethis::use_data_raw() # create data-raw/ etc..
+usethis::use_vignette("Error-check-workflow") # create vignette
 
 testthat::test_dir()    # Run all tests (devtools::test wraps this function.)
 testthat::test_file("tests/testthat/test-utils.R") # Run a specific test code.

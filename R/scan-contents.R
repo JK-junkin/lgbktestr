@@ -1,19 +1,23 @@
-#' Inspect and suggest changes contents of input data
+#' Inspect data contents
 #'
-#' @param .dat a data.frame or tibble standardized by \code{uniform_df()}.
-#' @param species species such as "not_tuna"
-#' @param dictionaries lookup tables referred to.
-#' @param .file file name
-#' @param .sheet sheet name when excel file read
-#' @param .fishery fishery such as "purse_seine"
+#' Scan input data (\code{data.frame}-like object) and return suggestions that
+#' records might be problematic.
+#' 
+#' @param .dat A data.frame or tibble standardized by \code{uniform_df()}.
+#' @param species Species such as "not_tuna".
+#' @param dictionaries Lookup tables referred to.
+#' @param .file File name.
+#' @param .sheet Sheet name when excel file read.
+#' @param .fishery Fishery such as "purse_seine".
+#' @return A data.frame.
 #' @importFrom magrittr %>%
 #' @importFrom rlang parse_expr quo
 #' @importFrom foreach %do% foreach
-#' @return a data.frame
 #' @examples
 #' \dontrun{
 #' scan_contents()
 #' }
+#' @importFrom magrittr %>%
 #' @export
 scan_contents <- function(.dat, species, dictionaries = NULL,
                           .file, .sheet, .fishery) {
