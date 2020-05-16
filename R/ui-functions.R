@@ -68,11 +68,28 @@ check_logbook.excel <- function(file, sheet, fishery, ...) {
                 .file = file, .sheet = sheet_name, .fishery = fishery)
 }
 
-#' @export
-check_logbook.csv <- function(file, ...) {
-  dat <- read.csv(file, stringsAsFactors = FALSE)
+#' Check up logbook csv file.
+#'
+#' @param file an csv file
+#' @param fishery fishery which the logbook treats
+#' @param species species which the logbook treats
+#' @param dictionaries a look-up table of vessel name and licence number in
+#'   a specific year
+#'
+#' @return data.frame describing error or warning records
+#'
+#' @examples
+#' \dontrun{
+#' check_logbook.csv(file = "your/file.csv",
+#'                   fishery = "purse seine",
+#'                   species = "not-tunas",
+#'                   dictionaries = list("files/at/", "your/local"))
+#' }
+check_logbook.csv <- function(file, fishery = "purse_seine",
+                              species = "not_tunas", dictionaries) {
+  message("CSV file can't be treated for now. Please wait until release.")
+  # dat <- utils::read.csv(file, header = TRUE, stringsAsFactors = FALSE)
 }
-
 
 #' Update check list
 #' 
