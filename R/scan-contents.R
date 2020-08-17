@@ -2,7 +2,7 @@
 #'
 #' Scan input data (\code{data.frame}-like object) and return suggestions that
 #' records might be problematic.
-#' 
+#'
 #' @param .dat A data.frame or tibble standardized by \code{uniform_df()}.
 #' @param species Species such as "not_tuna".
 #' @param dictionaries Lookup tables referred to.
@@ -42,16 +42,16 @@ scan_contents.purse_seine <- function(.dat, species, dictionaries = NULL,
     message("'species' is missing then 'not_tunas' is assigned automatically.")
   }
 
-  i <- 7
+  # i <- 7
 
   d <- .dat %>%
     tibble::rownames_to_column() %>%
     dplyr::filter_at(2, dplyr::all_vars(!is.na(.))) %>%
     tibble::column_to_rownames() %>% print
-    post_isFunc(type = check_list$purse_seine$isType[i],
+    post_isFunc(type = check_list$purse_seine$isType[6],
                 dat = d,
-                column = check_list$purse_seine$column[i],
-                !!quo(!!parse_expr(check_list$purse_seine$values[i])))
+                column = check_list$purse_seine$column[6],
+                !!rlang::quo(!!rlang::parse_expr(check_list$purse_seine$values[6])))
 
   # needs <- logical(length = 7)
   # # for(i in 1:7) {
