@@ -18,7 +18,7 @@ is_unique_length <- function(dat, column, u_len) {
     unique() %>%
     length()
 
-  isTRUE(all.equal.numeric(target, u_len, scale = 1))
+  isTRUE(all(target, u_len, scale = 1))
 }
 
 #' Test a number to be correctly digitalized
