@@ -49,7 +49,8 @@ uniform_df <- function(df, fishery) {
 
   proc_df <- fetch_ideal_colnames(fishery) %>%
     purrr::map_dfr(~ tibble::tibble(!!.x := logical())) %>% # empty data.frame
-    dplyr::bind_rows(
+#     dplyr::bind_rows(
+    rbind(
       magrittr::set_colnames(df, str_rm_newline_code(colnames(df)))
      )
 
