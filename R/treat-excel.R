@@ -28,13 +28,15 @@ treat_excel <- function(file, sheet = NULL,
 
   if (is.null(species)) {
     message("'species' is NULL then 'not_tunas' is assigned automatically.")
-    fishery <- "not_tunas"
+    species <- "not_tunas"
   }
 
   if (is.null(sheet)) {
-    if (fishery == "purse_seine" && species == "not_tunas") sheet <- 2
-    else if (length(readxl::excel_sheets(file)) < 2) sheet <- 1
-    else sheet
+    if (fishery == "purse_seine" && species == "not_tunas") {
+        sheet <- 2
+    } else { #(length(readxl::excel_sheets(file)) < 2)
+        sheet <- 1
+    }
   }
 
   dat <-
@@ -42,7 +44,7 @@ treat_excel <- function(file, sheet = NULL,
     # tibble::rownames_to_column() %>%
     # dplyr::filter(!is.na(sheet)) %>%
     # tibble::column_to_rownames() %>%
-    uniform_df()
+    uniform_df(fishery)
 
-  scan_contents(dat, fishery, species, dictionaries)
+  scan_contents(dat, fishery, species, dictionaries, sheet, file)
 }
