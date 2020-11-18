@@ -15,32 +15,34 @@ needs(foreach, tidyverse)
 devtools::load_all()
 
 # データファイルのパス ---------
-parent_dir <- "/Volumes/Extreme SSD/DATA/大中型旋網漁獲成績報告書"
+parent_dir <- "/Volumes/ExtremeSSD/DATA/大中型旋網漁獲成績報告書"
 year <- 2020
 indir <- dir(parent_dir, pattern = paste0(year, ".+操業"), full.names = T)
 
-infiles <- dir(file.path(indir, "入力済み"), full = T, pattern = "\\.xlsx?$")
+(infiles <- dir(file.path(indir, "01.入力済みファイル"),
+                full = T, pattern = "\\.xlsx?$"))
 
 # 読み込みテスト --------
-file <- infiles[2]
+file <- infiles[200]
+
 xl <- readxl::read_excel(file, sheet = "整理番号")
 head(xl); colnames(xl)
-t_xl <- lgbktestr::uniform_df(xl)
 
 # 動作テスト
+(t_xl <- uniform_df(xl, fishery = "purse_seine"))
+
+check_logbook(file = file)
+treat_excel(file = file)
+treat_excel(file = file, sheet = "整理番号") # 継承されていた
+treat_excel(file = file, sheet = "整理番号", fishery = "pole_and_line") # uniform_dfは機能
+
 out <- foreach(i = seq_along(infiles), .combine = "rbind") %do% {
-  test_excel_logbook(file = infiles[i], sheet = "整理番号") %>%
+  check_logbook(file = infiles[i], sheet = "整理番号") %>%
     dplyr::filter(Error_type != "OK (No errors)") %>%
     dplyr::mutate(File = stringr::str_extract(File, "(?<=入力済み\\/).*\\.xlsx$"))
 }
 
 formattable::formattable(out, cex = 10)
-
-
-
-
-
-
 
 
 ## -----------------
