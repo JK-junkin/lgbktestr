@@ -12,7 +12,6 @@ devtools::load_all() # Load source package on memory (!! skip package install)
 ## -----------------
 
 needs(foreach, tidyverse)
-devtools::load_all()
 
 # データファイルのパス ---------
 parent_dir <- "/Volumes/ExtremeSSD/DATA/大中型旋網漁獲成績報告書"
@@ -37,10 +36,13 @@ treat_excel(file = file, sheet = "整理番号") # 継承されていた
 treat_excel(file = file, sheet = "整理番号", fishery = "pole_and_line") # uniform_dfは機能
 
 out <- foreach(i = seq_along(infiles), .combine = "rbind") %do% {
-  check_logbook(file = infiles[i], sheet = "整理番号") %>%
-    dplyr::filter(Error_type != "OK (No errors)") %>%
-    dplyr::mutate(File = stringr::str_extract(File, "(?<=入力済み\\/).*\\.xlsx$"))
+    cat(i, "\n")
+    suppressMessages(
+        check_logbook(file = infiles[i], sheet = "整理番号") %>%
+            dplyr::filter(!is.na(Error)) 
+    )         
 }
+out
 
 formattable::formattable(out, cex = 10)
 

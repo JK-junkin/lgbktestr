@@ -1,4 +1,20 @@
 ## code to prepare `DATASET` dataset goes here
+
+# Code-sets of fresco ----------------------------------------------------------
+## (今後変わる可能性もあるので留意)
+code_list <- "~/git/lgbktestr/data-raw/frescoコード一覧_20190722版.xlsx"
+sheets <- readxl::excel_sheets(code_list)
+codes <- foreach::foreach(i = seq_along(sheets)) %do% {
+  cat(i, sheets[i], "\n")
+  readxl::read_excel(code_list, sheet = sheets[i], skip = 1, col_names = T)
+}
+names(codes) <- sheets
+# codes
+usethis::use_data(codes, internal = FALSE, overwrite = TRUE)
+rm(i, sheets, code_list, codes)
+
+
+## Column names for Purse-seine fishery ----------------------------------------
 list_colnames <- 
   tibble::lst(
     "purse_seine" = c("整理番号", "操業次", "報告月", "漁業種類コード",
