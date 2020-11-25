@@ -27,21 +27,25 @@ scan_contents <- function(dat, fishery, species, dictionaries = NULL, sheet, fil
             dplyr::pull(漁区)
 
         if (!test_all_uniq_vals_in(dat, column = "漁区", u_vals = dict)) {
+            target <- dat %>%
+                labdsv::defactorize() %>%
+                dplyr::pull(漁区)
+            
             out1 <- tibble::tibble(Column = "漁区",
-                                   Row = NA_character_,
-                                   Error = "範囲外の漁区",
-                                   Suggestion = paste0("この列の入力間違いがないか確認し,",
-                                                       "漁区が間違いないようなら操業海域ごとに",
+                                   Rows   = paste(which(!(target %in% dict)), collapse = ","),
+                                   Error  = "大海区1, 2以外の漁区が含まれる.",
+                                   Suggestion = paste0("1: 入力間違いがないか確認\n",
+                                                       "2: 漁区が間違いないようなら操業海域ごとに",
                                                        "ファイルを分け, 整理番号を振り直して下さい."),
-                                   File = basename(file),
-                                   Sheet = sheet)
+                                   File   = basename(file),
+                                   Sheet  = sheet)
         } else {
-            out1 <- tibble::tibble(Column = "漁区",
-                                   Row = NA_character_,
-                                   Error = NA_character_,
+            out1 <- tibble::tibble(Column     = "漁区",
+                                   Rows       = NA_character_,
+                                   Error      = NA_character_,
                                    Suggestion = NA_character_,
-                                   File = basename(file),
-                                   Sheet = sheet)
+                                   File       = basename(file),
+                                   Sheet      = sheet)
         }
 
         # 操業海域は初めから1つしか入力できない仕様. これは無意味

@@ -35,14 +35,16 @@ treat_excel(file = file)
 treat_excel(file = file, sheet = "整理番号") # 継承されていた
 treat_excel(file = file, sheet = "整理番号", fishery = "pole_and_line") # uniform_dfは機能
 
-out <- foreach(i = seq_along(infiles), .combine = "rbind") %do% {
-    cat(i, "\n")
+out <- foreach(i = infiles, .combine = "rbind") %do% {
+    cat(basename(i), "\n")
     suppressMessages(
-        check_logbook(file = infiles[i], sheet = "整理番号") %>%
+        check_logbook(file = i, sheet = "整理番号") %>%
             dplyr::filter(!is.na(Error)) 
     )         
 }
 out
+out$Rows
+
 
 formattable::formattable(out, cex = 10)
 
