@@ -114,6 +114,8 @@ test_sum <- function(dat, total_col, ...) {
   isTRUE(all.equal.numeric(target, against, scale = 1))
 }
 
+
+
 # Helpers -----------------------------------------------------------------
 
 # Referred from dplyr's R/select.R

@@ -43,3 +43,19 @@ check_logbook.xlsx <- function(file, ...) {
 check_logbook.csv <- function(file, ...) {
   treat_csv(file, ...)
 }
+
+#' @export
+output_checklist <- function(filedir, subdir = "", pattern = "") {
+    indir <- dir(filedir, pattern, full.names = TRUE)
+    infiles <- dir(file.path(indir, subdir), full.names = TRUE,
+                   pattern = "\\.xlsx?$")
+
+    out <- foreach(i = infiles, .combine = "rbind") %do% {
+        cat("Check", basename(i), "\n")
+        suppressMessages(
+            check_logbook(file = i, sheet = "整理番号") %>%
+                dplyr::filter(!is.na(Error))
+        )
+    }
+    out %>% dplyr::arrange(Column, File)
+}

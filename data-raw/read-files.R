@@ -15,38 +15,40 @@ needs(foreach, tidyverse)
 
 # データファイルのパス ---------
 parent_dir <- "/Volumes/ExtremeSSD/DATA/大中型旋網漁獲成績報告書"
-year <- 2020
-indir <- dir(parent_dir, pattern = paste0(year, ".+操業"), full.names = T)
-
-(infiles <- dir(file.path(indir, "01.入力済みファイル"),
-                full = T, pattern = "\\.xlsx?$"))
+# indir <- dir(parent_dir, pattern = paste0(2020, ".+操業"), full.names = T)
+# (infiles <- dir(file.path(indir, "01.入力済みファイル"),
+#                 full = T, pattern = "\\.xlsx?$"))
 
 # 読み込みテスト --------
-file <- infiles[200]
+# file <- infiles[200]
+# 
+# xl <- readxl::read_excel(file, sheet = "整理番号")
+# head(xl); colnames(xl)
 
-xl <- readxl::read_excel(file, sheet = "整理番号")
-head(xl); colnames(xl)
+# 動作テスト ----------
+out <- output_checklist(filedir = parent_dir,
+                        subdir  = "01.入力済みファイル",
+                        pattern = "2020.+操業")
+formattable::formattable(out, cex = 10)
 
-# 動作テスト
-(t_xl <- uniform_df(xl, fishery = "purse_seine"))
-
-check_logbook(file = file)
-treat_excel(file = file)
-treat_excel(file = file, sheet = "整理番号") # 継承されていた
-treat_excel(file = file, sheet = "整理番号", fishery = "pole_and_line") # uniform_dfは機能
-
-out <- foreach(i = infiles, .combine = "rbind") %do% {
-    cat("Check", basename(i), "\n")
-    suppressMessages(
-        check_logbook(file = i, sheet = "整理番号") %>%
-            dplyr::filter(!is.na(Error))
-    )         
-}
-aut <- out %>% dplyr::arrange(Column, File)
-aut
+# out <- foreach(i = infiles, .combine = "rbind") %do% {
+#     cat("Check", basename(i), "\n")
+#     suppressMessages(
+#         check_logbook(file = i, sheet = "整理番号") %>%
+#             dplyr::filter(!is.na(Error))
+#     )         
+# }
+# aut <- out %>% dplyr::arrange(Column, File)
+# aut
 # out$Rows
 
-formattable::formattable(aut, cex = 10)
+# (t_xl <- uniform_df(xl, fishery = "purse_seine"))
+# 
+# check_logbook(file = file)
+# treat_excel(file = file)
+# treat_excel(file = file, sheet = "整理番号") # 継承されていた
+# treat_excel(file = file, sheet = "整理番号", fishery = "pole_and_line") # uniform_dfは機能
+
 
 ## -----------------
 ## よりやっかいなエクセルデータに対処しなければならなくなったら
