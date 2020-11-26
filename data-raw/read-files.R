@@ -31,6 +31,8 @@ out <- output_checklist(filedir = parent_dir,
                         pattern = "2020.+操業")
 formattable::formattable(out, cex = 10)
 
+writexl::write_xlsx(out,  path = "~/Desktop/hoge.xlsx")
+
 # out <- foreach(i = infiles, .combine = "rbind") %do% {
 #     cat("Check", basename(i), "\n")
 #     suppressMessages(
@@ -50,7 +52,7 @@ formattable::formattable(out, cex = 10)
 # treat_excel(file = file, sheet = "整理番号", fishery = "pole_and_line") # uniform_dfは機能
 
 
-## -----------------
+## =============================================================================
 ## よりやっかいなエクセルデータに対処しなければならなくなったら
 # cells <- tidyxl::xlsx_cells(file)
 # head(cells)
